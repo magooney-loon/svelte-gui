@@ -1,0 +1,97 @@
+<script lang="ts">
+	import { slide } from 'svelte/transition';
+	import { quintOut } from 'svelte/easing';
+	import { StatusIcons, NavigationIcons } from '$lib/components/icons';
+
+	let {
+		message = 'Ohaithere',
+		dismissible = true,
+		color = 'yellow',
+		size = 'sm',
+		class: className = '',
+		onDismiss,
+		delay = 150
+	}: {
+		message?: string;
+		dismissible?: boolean;
+		color?: 'yellow' | 'blue' | 'red' | 'gray' | 'green';
+		size?: 'xs' | 'sm';
+		class?: string;
+		onDismiss?: () => void;
+		delay?: number;
+	} = $props();
+
+	let isDismissed = $state(true);
+
+	// Show banner after delay
+	setTimeout(() => {
+		isDismissed = false;
+	}, delay);
+
+	const colorVariants = {
+		yellow:
+			'bg-amber-50 border-amber-200 text-amber-800 dark:bg-amber-950 dark:border-amber-800/50 dark:text-amber-200',
+		blue: 'bg-blue-50 border-blue-200 text-blue-800 dark:bg-blue-950 dark:border-blue-800/50 dark:text-blue-200',
+		red: 'bg-red-50 border-red-200 text-red-800 dark:bg-red-950 dark:border-red-800/50 dark:text-red-200',
+		gray: 'bg-gray-50 border-gray-200 text-gray-800 dark:bg-gray-900 dark:border-gray-700/50 dark:text-gray-200',
+		green:
+			'bg-green-50 border-green-200 text-green-800 dark:bg-green-950 dark:border-green-800/50 dark:text-green-200'
+	};
+
+	const sizeVariants = {
+		xs: 'px-2 py-1 text-xs',
+		sm: 'px-3 py-1.5 text-xs'
+	};
+
+	// Auto-select icon based on color
+	const iconMap = {
+		yellow: 'warning',
+		red: 'error',
+		blue: 'info',
+		gray: 'info',
+		green: 'success'
+	} as const;
+
+	let bannerClasses = $derived(
+		`w-full border-b ${colorVariants[color]} ${sizeVariants[size]} ${className}`
+	);
+
+	let selectedIcon = $derived(iconMap[color]);
+
+	function handleDismiss() {
+		isDismissed = true;
+		onDismiss?.();
+	}
+
+	function handleKeydown(event: KeyboardEvent) {
+		if (event.key === 'Escape' && dismissible) {
+			handleDismiss();
+		}
+	}
+</script>
+
+{#if !isDismissed}
+	<div transition:slide={{ duration: 300, easing: quintOut }} class={bannerClasses} role="alert">
+		<div class="mx-auto flex max-w-7xl items-center justify-between gap-2">
+			<div class="flex min-w-0 flex-1 items-center gap-2">
+				<span class="shrink-0">
+					<StatusIcons name={selectedIcon} size="h-4 w-4" />
+				</span>
+				<p class="truncate leading-tight font-medium">
+					{message}
+				</p>
+			</div>
+
+			{#if dismissible}
+				<button
+					onclick={handleDismiss}
+					onkeydown={handleKeydown}
+					class="shrink-0 rounded-full p-1 transition-colors hover:bg-black/5 focus:ring-2 focus:ring-current focus:ring-offset-1 focus:outline-none dark:hover:bg-white/5"
+					aria-label="Dismiss warning"
+				>
+					<NavigationIcons name="close" size="h-3 w-3" />
+				</button>
+			{/if}
+		</div>
+	</div>
+{/if}

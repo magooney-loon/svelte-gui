@@ -1,0 +1,248 @@
+@import 'tailwindcss';
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+/* Custom Scrollbar Styles */
+/* Webkit browsers (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+	width: 12px;
+	height: 12px;
+}
+
+::-webkit-scrollbar-track {
+	background: #f1f5f9;
+	border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+	background: #cbd5e1;
+	border-radius: 6px;
+	transition: background 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: #94a3b8;
+}
+
+/* Dark mode scrollbar */
+[data-theme='dark']::-webkit-scrollbar-track,
+[data-theme='dark'] ::-webkit-scrollbar-track {
+	background: #0f172a;
+}
+
+[data-theme='dark']::-webkit-scrollbar-thumb,
+[data-theme='dark'] ::-webkit-scrollbar-thumb {
+	background: #475569;
+}
+
+[data-theme='dark']::-webkit-scrollbar-thumb:hover,
+[data-theme='dark'] ::-webkit-scrollbar-thumb:hover {
+	background: #64748b;
+}
+
+/* Firefox scrollbar */
+* {
+	scrollbar-width: thin;
+	scrollbar-color: #cbd5e1 #f1f5f9;
+}
+
+[data-theme='dark'],
+[data-theme='dark'] * {
+	scrollbar-color: #475569 #0f172a;
+}
+
+/* App Background - Applied to body via app-background class */
+.app-background {
+	background-color: #ffffff;
+	transition: background-color 0.2s ease;
+}
+
+[data-theme='dark'] .app-background {
+	background-color: #020617;
+}
+
+/* Base noise pattern on background */
+.app-background::before {
+	content: '';
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100dvh;
+	background-image: url('/noise.png');
+	background-size: auto;
+	background-repeat: repeat;
+	opacity: 0.03;
+	mask: radial-gradient(
+		ellipse at center,
+		rgba(0, 0, 0, 1) 0%,
+		rgba(0, 0, 0, 0.8) 40%,
+		rgba(0, 0, 0, 0.4) 70%,
+		rgba(0, 0, 0, 0) 100%
+	);
+	-webkit-mask: radial-gradient(
+		ellipse at center,
+		rgba(0, 0, 0, 1) 0%,
+		rgba(0, 0, 0, 0.8) 40%,
+		rgba(0, 0, 0, 0.4) 70%,
+		rgba(0, 0, 0, 0) 100%
+	);
+	pointer-events: none;
+	z-index: -10;
+	transition: opacity 0.2s ease;
+}
+
+/* Dark mode noise pattern */
+[data-theme='dark'] .app-background::before {
+	background-image: url('/noise.png');
+	background-size: auto;
+	background-repeat: repeat;
+	opacity: 0.05;
+	mask: radial-gradient(
+		ellipse at center,
+		rgba(0, 0, 0, 1) 0%,
+		rgba(0, 0, 0, 0.7) 40%,
+		rgba(0, 0, 0, 0.3) 70%,
+		rgba(0, 0, 0, 0) 100%
+	);
+	-webkit-mask: radial-gradient(
+		ellipse at center,
+		rgba(0, 0, 0, 1) 0%,
+		rgba(0, 0, 0, 0.7) 40%,
+		rgba(0, 0, 0, 0.3) 70%,
+		rgba(0, 0, 0, 0) 100%
+	);
+}
+
+/* Bottom gradient overlay with dark/light mode support */
+.gradient-overlay::after {
+	content: '';
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	width: 100%;
+	height: 6rem; /* Default height */
+	background: linear-gradient(
+		to top,
+		rgba(0, 0, 0, 0.15) 0%,
+		rgba(0, 0, 0, 0.12) 15%,
+		rgba(0, 0, 0, 0.08) 30%,
+		rgba(0, 0, 0, 0.05) 45%,
+		rgba(0, 0, 0, 0.02) 60%,
+		transparent 80%,
+		transparent 100%
+	);
+	mask: radial-gradient(
+		ellipse at center bottom,
+		rgba(0, 0, 0, 1) 0%,
+		rgba(0, 0, 0, 0.95) 15%,
+		rgba(0, 0, 0, 0.8) 30%,
+		rgba(0, 0, 0, 0.6) 45%,
+		rgba(0, 0, 0, 0.4) 60%,
+		rgba(0, 0, 0, 0.2) 75%,
+		rgba(0, 0, 0, 0.05) 90%,
+		rgba(0, 0, 0, 0) 100%
+	);
+	-webkit-mask: radial-gradient(
+		ellipse at center bottom,
+		rgba(0, 0, 0, 1) 0%,
+		rgba(0, 0, 0, 0.9) 20%,
+		rgba(0, 0, 0, 0.7) 40%,
+		rgba(0, 0, 0, 0.4) 60%,
+		rgba(0, 0, 0, 0.2) 80%,
+		rgba(0, 0, 0, 0) 100%
+	);
+	filter: blur(3px);
+	-webkit-filter: blur(3px);
+	pointer-events: none;
+	z-index: 10;
+	transition: all 0.2s ease;
+	will-change: transform;
+	transform: translateZ(0);
+	backface-visibility: hidden;
+	-webkit-transform: translateZ(0);
+	contain: layout style paint;
+}
+
+/* iOS Safari dynamic viewport support - progressive enhancement */
+@supports (height: 100dvh) {
+	.gradient-overlay::after {
+		/* Adjust position for iOS Safari dynamic viewport */
+		bottom: max(0px, env(safe-area-inset-bottom, 0px));
+	}
+}
+
+/* Dark mode gradient overlay */
+[data-theme='dark'] .gradient-overlay::after {
+	background: linear-gradient(
+		to top,
+		rgba(255, 255, 255, 0.12) 0%,
+		rgba(255, 255, 255, 0.09) 15%,
+		rgba(255, 255, 255, 0.06) 30%,
+		rgba(255, 255, 255, 0.04) 45%,
+		rgba(255, 255, 255, 0.02) 60%,
+		transparent 80%,
+		transparent 100%
+	);
+	mask: radial-gradient(
+		ellipse at center bottom,
+		rgba(0, 0, 0, 1) 0%,
+		rgba(0, 0, 0, 0.95) 15%,
+		rgba(0, 0, 0, 0.8) 30%,
+		rgba(0, 0, 0, 0.6) 45%,
+		rgba(0, 0, 0, 0.4) 60%,
+		rgba(0, 0, 0, 0.2) 75%,
+		rgba(0, 0, 0, 0.05) 90%,
+		rgba(0, 0, 0, 0) 100%
+	);
+	-webkit-mask: radial-gradient(
+		ellipse at center bottom,
+		rgba(0, 0, 0, 1) 0%,
+		rgba(0, 0, 0, 0.85) 20%,
+		rgba(0, 0, 0, 0.6) 40%,
+		rgba(0, 0, 0, 0.3) 60%,
+		rgba(0, 0, 0, 0.15) 80%,
+		rgba(0, 0, 0, 0) 100%
+	);
+	filter: blur(2.5px);
+	-webkit-filter: blur(2.5px);
+	-webkit-transform: translateZ(0);
+	transform: translateZ(0);
+	contain: layout style paint;
+}
+
+/* iOS Safari dynamic viewport support for dark mode */
+@supports (height: 100dvh) {
+	[data-theme='dark'] .gradient-overlay::after {
+		bottom: max(0px, env(safe-area-inset-bottom, 0px));
+	}
+}
+
+/* Responsive height adjustments */
+@media (max-width: 768px) {
+	.gradient-overlay::after {
+		height: 5rem;
+		filter: blur(1.5px);
+		-webkit-filter: blur(1.5px);
+	}
+
+	[data-theme='dark'] .gradient-overlay::after {
+		filter: blur(1.5px);
+		-webkit-filter: blur(1.5px);
+	}
+}
+
+@media (max-width: 480px) {
+	.gradient-overlay::after {
+		height: 4rem;
+		filter: blur(1px);
+		-webkit-filter: blur(1px);
+		min-height: 3rem;
+	}
+
+	[data-theme='dark'] .gradient-overlay::after {
+		filter: blur(1px);
+		-webkit-filter: blur(1px);
+		min-height: 3rem;
+	}
+}
