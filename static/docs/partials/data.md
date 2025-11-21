@@ -132,7 +132,7 @@ Additional CSS classes
 
 ## ProgressBar
 
-A customizable progress bar component with labels and animations.
+A customizable progress bar component with native HTML semantics, labels, and smart auto-coloring.
 
 ### Props
 
@@ -148,30 +148,43 @@ Label text
 **showPercentage** `boolean` (default: `true`)  
 Display percentage
 
-**color** `'blue' | 'green' | 'yellow' | 'red' | 'gray'` (default: `'blue'`)  
-Bar color
+**color** `'blue' | 'green' | 'yellow' | 'red' | 'gray' | 'orange'` (default: `'blue'`)  
+Bar color (overridden by autoColor)
 
 **size** `'sm' | 'md' | 'lg'` (default: `'md'`)  
 Bar thickness
 
 **animated** `boolean` (default: `true`)  
-Smooth transition animation
+Smooth transition and shimmer effects
 
 **striped** `boolean` (default: `false`)  
-Animated stripe pattern
+Animated diagonal stripe pattern
+
+**autoColor** `boolean` (default: `false`)  
+Dynamic color based on progress percentage
 
 **class** `string` (default: `''`)  
 Container CSS classes
 
 ### Features
 
-- Smooth animations
-- Multiple size options
-- 5 color schemes
-- Optional stripe pattern
-- Percentage display
-- Custom labels
-- Accessibility support (ARIA)
+- **Native HTML progress element** for semantics and accessibility
+- **Auto-color system**: Red (0-25%) → Orange (26-45%) → Yellow (46-75%) → Green (76-100%)
+- **Futuristic design** with glow effects and glassmorphism
+- **Smart animations**: Shimmer for animated bars, moving stripes for striped bars
+- **Light/dark mode** optimized with data-theme support
+- **6 color schemes** including new orange variant
+- **3 size options** (thin, compact design)
+- **ARIA compliance** with proper labels and semantics
+
+### Auto-Color Thresholds
+
+When `autoColor={true}`, color automatically changes based on percentage:
+
+- **0-25%**: Red (critical/low)
+- **26-45%**: Orange (warning/poor)  
+- **46-75%**: Yellow (caution/fair)
+- **76-100%**: Green (success/good)
 
 ---
 
