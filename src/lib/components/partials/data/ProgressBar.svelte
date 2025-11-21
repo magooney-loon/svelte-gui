@@ -55,16 +55,15 @@
 	};
 
 	const colorStyles = {
-		blue: 'bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.5)]',
-		green: 'bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]',
-		yellow: 'bg-amber-400 shadow-[0_0_10px_rgba(245,158,11,0.5)]',
-		red: 'bg-red-500 shadow-[0_0_10px_rgba(239,68,68,0.5)]',
-		orange: 'bg-orange-500 shadow-[0_0_10px_rgba(249,115,22,0.5)]',
-		gray: 'bg-gray-500 shadow-[0_0_10px_rgba(107,114,128,0.5)]'
+		blue: 'bg-blue-500',
+		green: 'bg-emerald-500',
+		yellow: 'bg-amber-400',
+		red: 'bg-red-500',
+		orange: 'bg-orange-500',
+		gray: 'bg-gray-500'
 	};
 
-	const backgroundStyles =
-		'bg-gray-200/80 backdrop-blur-sm border border-gray-300/50 dark:bg-gray-800/30 dark:border-gray-700/50';
+	const backgroundStyles = 'bg-gray-200 dark:bg-gray-700';
 
 	const animationStyles = animated ? 'transition-all duration-500 ease-out' : '';
 
@@ -75,7 +74,7 @@
 	);
 
 	let containerClasses = $derived(
-		`relative w-full ${sizeStyles[size]} ${backgroundStyles} rounded-full overflow-hidden shadow-inner`
+		`relative w-full ${sizeStyles[size]} ${backgroundStyles} rounded-full overflow-hidden`
 	);
 
 	let nativeProgressClasses = $derived(
@@ -119,18 +118,7 @@
 				? 'transition: width 500ms ease-out;'
 				: ''}"
 			role="presentation"
-		>
-			{#if !striped}
-				<!-- Futuristic glow effect (only when not striped) -->
-				<div
-					class="absolute inset-0 bg-linear-to-r from-transparent via-black/10 to-transparent opacity-40 dark:via-white/20 dark:opacity-60"
-				></div>
-				{#if animated}
-					<!-- Shimmer animation for non-striped animated bars -->
-					<div class="shimmer-effect absolute inset-0 opacity-40"></div>
-				{/if}
-			{/if}
-		</div>
+		></div>
 	</div>
 </div>
 
@@ -138,38 +126,23 @@
 	.striped-progress {
 		background-image: repeating-linear-gradient(
 			45deg,
-			transparent,
-			transparent 10px,
-			rgba(0, 0, 0, 0.15) 10px,
-			rgba(0, 0, 0, 0.15) 20px
+			rgba(255, 255, 255, 0.1),
+			rgba(255, 255, 255, 0.1) 8px,
+			transparent 8px,
+			transparent 16px
 		);
-		animation: stripe-move 1.5s linear infinite;
+		background-size: 16px 16px;
+		animation: stripe-move 1s linear infinite;
 	}
 
 	/* Dark mode stripes */
 	:global([data-theme='dark']) .striped-progress {
 		background-image: repeating-linear-gradient(
 			45deg,
-			transparent,
-			transparent 10px,
-			rgba(255, 255, 255, 0.3) 10px,
-			rgba(255, 255, 255, 0.3) 20px
-		);
-	}
-
-	.shimmer-effect {
-		background: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.2) 50%, transparent 100%);
-		background-size: 200% 100%;
-		animation: shimmer 2s ease-in-out infinite;
-	}
-
-	/* Dark mode shimmer */
-	:global([data-theme='dark']) .shimmer-effect {
-		background: linear-gradient(
-			90deg,
-			transparent 0%,
-			rgba(255, 255, 255, 0.4) 50%,
-			transparent 100%
+			rgba(255, 255, 255, 0.2),
+			rgba(255, 255, 255, 0.2) 8px,
+			transparent 8px,
+			transparent 16px
 		);
 	}
 
@@ -178,16 +151,7 @@
 			background-position: 0 0;
 		}
 		100% {
-			background-position: 28px 0;
-		}
-	}
-
-	@keyframes shimmer {
-		0% {
-			background-position: -200% 0;
-		}
-		100% {
-			background-position: 200% 0;
+			background-position: 16px 0;
 		}
 	}
 </style>

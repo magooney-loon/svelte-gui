@@ -2,23 +2,15 @@
 	import '../app.css';
 	import { fade } from 'svelte/transition';
 	import { onMount } from 'svelte';
-	import {
-		Navigation,
-		Footer,
-		SplashScreen,
-		splashScreenState,
-		splashScreen
-	} from '$lib/components/main';
+	import { Navigation, Footer, SplashScreen, splashScreenState } from '$lib/components/main';
 	import { Toast } from '$lib/components/partials';
 	import { auth, initializeAuth, toast, Mouse, ScrollToTop, Seo } from '$lib/utils';
 
 	onMount(async () => {
 		try {
 			await initializeAuth();
-			splashScreen.setAuthComplete();
 		} catch (error) {
 			console.error('Auth initialization failed:', error);
-			splashScreen.setAuthComplete(); // Complete anyway to prevent hanging
 		}
 	});
 
@@ -41,9 +33,9 @@
 
 <Seo />
 
-{#if splashState.isLoading}
-	<SplashScreen />
-{:else}
+<SplashScreen />
+
+{#if !splashState.isVisible}
 	<div class="relative">
 		<Navigation />
 		<main in:fade class="mx-auto">
