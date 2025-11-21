@@ -170,7 +170,6 @@ Container CSS classes
 
 - **Native HTML progress element** for semantics and accessibility
 - **Auto-color system**: Red (0-25%) → Orange (26-45%) → Yellow (46-75%) → Green (76-100%)
-- **Futuristic design** with glow effects and glassmorphism
 - **Smart animations**: Shimmer for animated bars, moving stripes for striped bars
 - **Light/dark mode** optimized with data-theme support
 - **6 color schemes** including new orange variant
