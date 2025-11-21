@@ -63,7 +63,8 @@
 		gray: 'bg-gray-500 shadow-[0_0_10px_rgba(107,114,128,0.5)]'
 	};
 
-	const backgroundStyles = 'bg-gray-800/30 backdrop-blur-sm border border-gray-700/50';
+	const backgroundStyles =
+		'bg-gray-200/80 backdrop-blur-sm border border-gray-300/50 dark:bg-gray-800/30 dark:border-gray-700/50';
 
 	const animationStyles = animated ? 'transition-all duration-500 ease-out' : '';
 
@@ -86,11 +87,13 @@
 	{#if label || showPercentage}
 		<div class="flex items-center justify-between text-sm">
 			{#if label}
-				<span class="text-xs font-medium tracking-wide text-gray-300 uppercase">{label}</span>
+				<span class="text-xs font-medium tracking-wide text-gray-700 uppercase dark:text-gray-300"
+					>{label}</span
+				>
 			{/if}
 			{#if showPercentage}
 				<span
-					class="rounded border border-gray-700/50 bg-gray-800/50 px-2 py-0.5 font-mono text-xs text-gray-400"
+					class="rounded border border-gray-300/50 bg-gray-100/80 px-2 py-0.5 font-mono text-xs text-gray-600 dark:border-gray-700/50 dark:bg-gray-800/50 dark:text-gray-400"
 				>
 					{Math.round(percentage)}%
 				</span>
@@ -120,7 +123,7 @@
 			{#if !striped}
 				<!-- Futuristic glow effect (only when not striped) -->
 				<div
-					class="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent opacity-60"
+					class="absolute inset-0 bg-linear-to-r from-transparent via-black/10 to-transparent opacity-40 dark:via-white/20 dark:opacity-60"
 				></div>
 				{#if animated}
 					<!-- Shimmer animation for non-striped animated bars -->
@@ -137,21 +140,37 @@
 			45deg,
 			transparent,
 			transparent 10px,
-			rgba(255, 255, 255, 0.3) 10px,
-			rgba(255, 255, 255, 0.3) 20px
+			rgba(0, 0, 0, 0.15) 10px,
+			rgba(0, 0, 0, 0.15) 20px
 		);
 		animation: stripe-move 1.5s linear infinite;
 	}
 
+	/* Dark mode stripes */
+	:global([data-theme='dark']) .striped-progress {
+		background-image: repeating-linear-gradient(
+			45deg,
+			transparent,
+			transparent 10px,
+			rgba(255, 255, 255, 0.3) 10px,
+			rgba(255, 255, 255, 0.3) 20px
+		);
+	}
+
 	.shimmer-effect {
+		background: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.2) 50%, transparent 100%);
+		background-size: 200% 100%;
+		animation: shimmer 2s ease-in-out infinite;
+	}
+
+	/* Dark mode shimmer */
+	:global([data-theme='dark']) .shimmer-effect {
 		background: linear-gradient(
 			90deg,
 			transparent 0%,
 			rgba(255, 255, 255, 0.4) 50%,
 			transparent 100%
 		);
-		background-size: 200% 100%;
-		animation: shimmer 2s ease-in-out infinite;
 	}
 
 	@keyframes stripe-move {
