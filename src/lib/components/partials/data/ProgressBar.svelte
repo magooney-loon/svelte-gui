@@ -8,16 +8,18 @@
 		size = 'md',
 		animated = true,
 		striped = false,
+		autoColor = false,
 		class: className = ''
 	}: {
 		value?: number;
 		max?: number;
 		label?: string;
 		showPercentage?: boolean;
-		color?: 'blue' | 'green' | 'yellow' | 'red' | 'gray';
+		color?: 'blue' | 'green' | 'yellow' | 'red' | 'gray' | 'orange';
 		size?: 'sm' | 'md' | 'lg';
 		animated?: boolean;
 		striped?: boolean;
+		autoColor?: boolean;
 		class?: string;
 	} = $props();
 
@@ -36,46 +38,60 @@
 		return Math.min(Math.max(calculated, 0), 100);
 	});
 
+	// Auto color logic based on percentage
+	let dynamicColor = $derived.by(() => {
+		if (!autoColor) return color;
+
+		if (percentage <= 25) return 'red';
+		if (percentage <= 45) return 'orange';
+		if (percentage <= 75) return 'yellow';
+		return 'green';
+	});
+
 	const sizeStyles = {
 		sm: 'h-1',
-		md: 'h-2',
-		lg: 'h-3'
+		md: 'h-1.5',
+		lg: 'h-2'
 	};
 
 	const colorStyles = {
-		blue: 'bg-blue-600 dark:bg-blue-500',
-		green: 'bg-green-600 dark:bg-green-500',
-		yellow: 'bg-yellow-500 dark:bg-yellow-400',
-		red: 'bg-red-600 dark:bg-red-500',
-		gray: 'bg-gray-600 dark:bg-gray-400'
+		blue: 'bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.5)]',
+		green: 'bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]',
+		yellow: 'bg-amber-400 shadow-[0_0_10px_rgba(245,158,11,0.5)]',
+		red: 'bg-red-500 shadow-[0_0_10px_rgba(239,68,68,0.5)]',
+		orange: 'bg-orange-500 shadow-[0_0_10px_rgba(249,115,22,0.5)]',
+		gray: 'bg-gray-500 shadow-[0_0_10px_rgba(107,114,128,0.5)]'
 	};
 
-	const backgroundStyles = 'bg-gray-200 dark:bg-gray-700';
+	const backgroundStyles = 'bg-gray-800/30 backdrop-blur-sm border border-gray-700/50';
 
-	const animationStyles = animated ? 'transition-all duration-300 ease-out' : '';
+	const animationStyles = animated ? 'transition-all duration-500 ease-out' : '';
 
-	const stripedStyles = striped
-		? 'bg-gradient-to-r from-transparent via-white/20 to-transparent bg-[length:1rem_1rem] animate-pulse'
-		: '';
+	const stripedStyles = striped ? 'striped-progress' : '';
 
 	let barClasses = $derived(
-		`${sizeStyles[size]} ${colorStyles[color]} ${animationStyles} ${stripedStyles} rounded-full`
+		`${sizeStyles[size]} ${colorStyles[dynamicColor]} ${animationStyles} ${stripedStyles} rounded-full relative overflow-hidden`
 	);
 
 	let containerClasses = $derived(
-		`w-full ${sizeStyles[size]} ${backgroundStyles} rounded-full overflow-hidden`
+		`relative w-full ${sizeStyles[size]} ${backgroundStyles} rounded-full overflow-hidden shadow-inner`
+	);
+
+	let nativeProgressClasses = $derived(
+		`absolute inset-0 w-full h-full opacity-0 pointer-events-none`
 	);
 </script>
 
-<div class="space-y-2 {className}">
+<div class="space-y-3 {className}">
 	{#if label || showPercentage}
 		<div class="flex items-center justify-between text-sm">
 			{#if label}
-				<span class="text-center text-xs font-medium text-gray-900 dark:text-gray-100">{label}</span
-				>
+				<span class="text-xs font-medium tracking-wide text-gray-300 uppercase">{label}</span>
 			{/if}
 			{#if showPercentage}
-				<span class="text-center text-xs text-gray-600 dark:text-gray-400">
+				<span
+					class="rounded border border-gray-700/50 bg-gray-800/50 px-2 py-0.5 font-mono text-xs text-gray-400"
+				>
 					{Math.round(percentage)}%
 				</span>
 			{/if}
@@ -83,14 +99,76 @@
 	{/if}
 
 	<div class={containerClasses}>
+		<!-- Native progress element for semantics and accessibility (invisible) -->
+		<progress
+			class={nativeProgressClasses}
+			{value}
+			{max}
+			aria-label={label || `Progress: ${Math.round(percentage)}%`}
+		>
+			{Math.round(percentage)}%
+		</progress>
+
+		<!-- Custom animated progress bar (visible) -->
 		<div
 			class={barClasses}
-			style="width: {percentage}%"
-			role="progressbar"
-			aria-valuenow={value}
-			aria-valuemin="0"
-			aria-valuemax={max}
-			aria-label={label || `Progress: ${Math.round(percentage)}%`}
-		></div>
+			style="width: {percentage}%; {animated && !striped
+				? 'transition: width 500ms ease-out;'
+				: ''}"
+			role="presentation"
+		>
+			{#if !striped}
+				<!-- Futuristic glow effect (only when not striped) -->
+				<div
+					class="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent opacity-60"
+				></div>
+				{#if animated}
+					<!-- Shimmer animation for non-striped animated bars -->
+					<div class="shimmer-effect absolute inset-0 opacity-40"></div>
+				{/if}
+			{/if}
+		</div>
 	</div>
 </div>
+
+<style>
+	.striped-progress {
+		background-image: repeating-linear-gradient(
+			45deg,
+			transparent,
+			transparent 10px,
+			rgba(255, 255, 255, 0.3) 10px,
+			rgba(255, 255, 255, 0.3) 20px
+		);
+		animation: stripe-move 1.5s linear infinite;
+	}
+
+	.shimmer-effect {
+		background: linear-gradient(
+			90deg,
+			transparent 0%,
+			rgba(255, 255, 255, 0.4) 50%,
+			transparent 100%
+		);
+		background-size: 200% 100%;
+		animation: shimmer 2s ease-in-out infinite;
+	}
+
+	@keyframes stripe-move {
+		0% {
+			background-position: 0 0;
+		}
+		100% {
+			background-position: 28px 0;
+		}
+	}
+
+	@keyframes shimmer {
+		0% {
+			background-position: -200% 0;
+		}
+		100% {
+			background-position: 200% 0;
+		}
+	}
+</style>

@@ -235,7 +235,7 @@
 	<!-- RecentItemsCard Component -->
 	<Card
 		title="RecentItemsCard"
-		subtitle="Display recent activity with optional &quot;View all&quot; link and custom empty state."
+		subtitle="Display recent activity with optional &quot;View all&quot; and custom empty state."
 		expandable={true}
 		defaultExpanded={false}
 		class="p-6"
@@ -283,45 +283,56 @@
 	<!-- ProgressBar Component -->
 	<Card
 		title="ProgressBar"
-		subtitle="Customizable progress bars with colors, animations, and different configurations."
+		subtitle="Progress bars with auto-coloring, glow effects, and smooth animations."
 		expandable={true}
 		defaultExpanded={false}
 		class="p-6"
 	>
-		<!-- Essential Features -->
+		<!-- All Features Showcase -->
 		<div class="mb-6">
-			<h3 class="mb-3 text-lg font-medium text-gray-900 dark:text-gray-100">Colors & Sizes</h3>
+			<h3 class="mb-3 text-lg font-medium text-gray-900 dark:text-gray-100">Feature Showcase</h3>
 			<div class="space-y-4">
-				<ProgressBar value={uploadProgress} color="blue" label="Upload Progress" size="sm" />
 				<ProgressBar
-					value={processingProgress}
-					color="green"
-					label="Processing Data"
+					value={uploadProgress}
+					autoColor={true}
+					label="Auto-Color (Dynamic)"
+					size="sm"
 					animated={true}
 				/>
-				<ProgressBar value={storageProgress} color="yellow" label="Storage Usage" striped={true} />
-				<ProgressBar value={errorProgress} color="red" label="Error Rate" size="lg" />
+				<ProgressBar
+					value={processingProgress}
+					color="blue"
+					label="Manual Blue Color"
+					size="md"
+					animated={true}
+				/>
+				<ProgressBar
+					value={storageProgress}
+					color="orange"
+					label="Striped Orange"
+					size="md"
+					striped={true}
+				/>
+				<ProgressBar
+					value={errorProgress}
+					color="gray"
+					label="Large Gray (No Animation)"
+					size="lg"
+					animated={false}
+				/>
 			</div>
 		</div>
 
 		<!-- Interactive Demo -->
-		<div>
-			<h3 class="mb-3 text-lg font-medium text-gray-900 dark:text-gray-100">
-				Interactive Controls
-			</h3>
-			<div class="space-y-4">
-				<ProgressBar
-					value={uploadProgress}
-					color={uploadProgress === 100 ? 'green' : 'blue'}
-					label="Dynamic Progress"
-					animated={true}
-				/>
-				<div class="flex gap-2">
-					<Button size="xs" onclick={() => (uploadProgress = 0)}>Reset</Button>
-					<Button size="xs" onclick={() => (uploadProgress = 25)}>25%</Button>
-					<Button size="xs" onclick={() => (uploadProgress = 75)}>75%</Button>
-					<Button size="xs" onclick={() => (uploadProgress = 100)}>Complete</Button>
-				</div>
+
+		<div class="mt-4 space-y-4">
+			<div class="flex gap-2">
+				<Button size="xs" onclick={() => (uploadProgress = 0)}>Reset</Button>
+				<Button size="xs" onclick={() => (uploadProgress = 15)}>15%</Button>
+				<Button size="xs" onclick={() => (uploadProgress = 35)}>35%</Button>
+				<Button size="xs" onclick={() => (uploadProgress = 60)}>60%</Button>
+				<Button size="xs" onclick={() => (uploadProgress = 90)}>90%</Button>
+				<Button size="xs" onclick={() => (uploadProgress = 100)}>End</Button>
 			</div>
 		</div>
 	</Card>
