@@ -2,6 +2,17 @@
 
 A complete app shell, component library and utility toolkit for building modern SvelteKit applications with optional Pocketbase backend.
 
+## 🎨 Showcase
+
+See Svelte GUI in action with these live examples:
+
+| Demo | Description | Link |
+|------|-------------|------|
+| **Demo Website** | Full-featured demo showcasing all components and features | [https://svelte-gui.vercel.app/](https://svelte-gui.vercel.app/) |
+| **IMG2GIF Tool** | Real-world application using Svelte GUI for image conversion | [https://bubi-gif.vercel.app/](https://bubi-gif.vercel.app/) |
+| **PB Deployer** | PocketBase deployment tool (uses an older alpha version) | [https://github.com/magooney-loon/pb-deployer](https://github.com/magooney-loon/pb-deployer) |
+| **Algo Trading Bot** | Algorithmic trading interface powered by Svelte GUI | [Video Demo](https://player.mux.com/hOUyH02r8eqc7LmSOEaLPN7t7KS7LmsXlqNq01Re5p7Rc?metadata-video-title=algodex&video-title=algodex&accent-color=%230f94e6) |
+
 ## What is Svelte GUI?
 
 Svelte GUI provides everything you need to build modern web applications:
