@@ -278,7 +278,7 @@
 		>
 			{#each gettingStartedCards as card (card.id)}
 				{@const ButtonIconComponent = getIconComponent(card.button.iconLibrary)}
-				<Card padding="xl" shadow="lg" class="text-center">
+				<Card padding="xl" shadow="lg" class="edge-wrapper text-center">
 					<div class="space-y-6">
 						<div class="text-center">
 							<div class="mb-4 text-4xl">{card.emoji}</div>
