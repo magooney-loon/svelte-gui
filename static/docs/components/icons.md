@@ -5,9 +5,11 @@ Icon components library with categorized SVG icons for common UI needs.
 ## Icon Categories
 
 ### AccountIcons
+
 User and authentication-related icons.
 
 **Props:**
+
 - `name: AccountIconName` (required) - Icon name
 - `size?: string` (default: `'h-4 w-4'`) - Tailwind size classes
 - `class?: string` (default: `''`) - Additional CSS classes
@@ -17,9 +19,11 @@ User and authentication-related icons.
 ---
 
 ### ActionIcons
+
 Action and interaction-related icons.
 
 **Props:**
+
 - `name: ActionIconName` (required) - Icon name
 - `size?: string` (default: `'h-4 w-4'`) - Tailwind size classes
 - `class?: string` (default: `''`) - Additional CSS classes
@@ -29,9 +33,11 @@ Action and interaction-related icons.
 ---
 
 ### FileIcons
+
 File and folder-related icons.
 
 **Props:**
+
 - `name: FileIconName` (required) - Icon name
 - `size?: string` (default: `'h-4 w-4'`) - Tailwind size classes
 - `class?: string` (default: `''`) - Additional CSS classes
@@ -41,9 +47,11 @@ File and folder-related icons.
 ---
 
 ### MediaIcons
+
 Media and playback-related icons.
 
 **Props:**
+
 - `name: MediaIconName` (required) - Icon name
 - `size?: string` (default: `'h-4 w-4'`) - Tailwind size classes
 - `class?: string` (default: `''`) - Additional CSS classes
@@ -53,9 +61,11 @@ Media and playback-related icons.
 ---
 
 ### NavigationIcons
+
 Navigation and UI control icons.
 
 **Props:**
+
 - `name: NavigationIconName` (required) - Icon name
 - `size?: string` (default: `'h-4 w-4'`) - Tailwind size classes
 - `class?: string` (default: `''`) - Additional CSS classes
@@ -65,9 +75,11 @@ Navigation and UI control icons.
 ---
 
 ### SocialIcons
+
 Social media and communication icons.
 
 **Props:**
+
 - `name: SocialIconName` (required) - Icon name
 - `size?: string` (default: `'h-4 w-4'`) - Tailwind size classes
 - `class?: string` (default: `''`) - Additional CSS classes
@@ -77,9 +89,11 @@ Social media and communication icons.
 ---
 
 ### StatusIcons
+
 Status and state indicator icons.
 
 **Props:**
+
 - `name: StatusIconName` (required) - Icon name
 - `size?: string` (default: `'h-4 w-4'`) - Tailwind size classes
 - `class?: string` (default: `''`) - Additional CSS classes
@@ -89,9 +103,11 @@ Status and state indicator icons.
 ---
 
 ### ThemeIcons
+
 Theme and settings-related icons.
 
 **Props:**
+
 - `name: ThemeIconName` (required) - Icon name
 - `size?: string` (default: `'h-4 w-4'`) - Tailwind size classes
 - `class?: string` (default: `''`) - Additional CSS classes
@@ -103,6 +119,7 @@ Theme and settings-related icons.
 ## Sizing
 
 All icons use Tailwind CSS classes for sizing. Default is `h-4 w-4`. Common sizes:
+
 - `h-3 w-3` - Extra small
 - `h-4 w-4` - Small (default)
 - `h-5 w-5` - Medium
@@ -112,6 +129,7 @@ All icons use Tailwind CSS classes for sizing. Default is `h-4 w-4`. Common size
 ## Styling
 
 Icons inherit the current text color and can be styled with Tailwind classes:
+
 - `text-blue-500` - Change color
 - `opacity-50` - Change opacity
 - Any other standard Tailwind utilities

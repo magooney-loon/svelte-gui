@@ -2,8 +2,8 @@
 	import { slide } from 'svelte/transition';
 	import { quintOut } from 'svelte/easing';
 	import { NavigationIcons } from '$lib/components/icons';
-	import { browser } from '$app/environment';
-	import { scrollToElementSmooth } from '$lib/utils';
+	import { scrollToElementSmooth, animations } from '$lib/utils';
+	import { untrack } from 'svelte';
 
 	let {
 		title,
@@ -41,7 +41,7 @@
 		children?: import('svelte').Snippet;
 	} = $props();
 
-	let isExpanded = $state(defaultExpanded);
+	let isExpanded = $state(untrack(() => defaultExpanded));
 	let cardElement: HTMLElement | undefined = $state();
 
 	// Pre-computed static classes - no reactive recalculation
@@ -151,29 +151,14 @@
 	}
 
 	// Pre-computed header classes for expandable cards
-	const expandableHeaderClasses = `group flex w-full cursor-pointer items-start justify-between p-4 text-left transition-all duration-150 ease-out hover:bg-gray-50/80 focus:bg-gray-50/80 focus:outline-none active:bg-gray-100/80 sm:p-6 dark:hover:bg-gray-800/50 dark:focus:bg-gray-800/50 dark:active:bg-gray-800/75 ${headerClass}`;
+	const expandableHeaderClasses = $derived(
+		`group flex w-full cursor-pointer items-start justify-between p-4 text-left transition-all duration-150 ease-out hover:bg-gray-50/80 focus:bg-gray-50/80 focus:outline-none active:bg-gray-100/80 sm:p-6 dark:hover:bg-gray-800/50 dark:focus:bg-gray-800/50 dark:active:bg-gray-800/75 ${headerClass}`
+	);
 
-	const staticHeaderClasses = `mb-4 ${headerClass}`;
+	const staticHeaderClasses = $derived(`mb-4 ${headerClass}`);
 
 	// Transition duration - optimized for smooth performance
 	const transitionDuration = 300;
-
-	// Check if animations are enabled in user settings
-	function areAnimationsEnabled(): boolean {
-		if (!browser) return true;
-
-		try {
-			const stored = localStorage.getItem('settings');
-			if (stored) {
-				const settings = JSON.parse(stored);
-				return settings?.ui?.animationsEnabled !== false;
-			}
-		} catch {
-			// If we can't read settings, default to enabled
-		}
-
-		return true;
-	}
 </script>
 
 {#if href}
@@ -249,10 +234,10 @@
 				{#if isExpanded}
 					<div
 						id="card-content"
-						in:slide={areAnimationsEnabled()
+						in:slide={animations.enabled
 							? { duration: transitionDuration, easing: quintOut }
 							: { duration: 0 }}
-						out:slide={areAnimationsEnabled()
+						out:slide={animations.enabled
 							? { duration: Math.floor(transitionDuration * 0.8), easing: quintOut }
 							: { duration: 0 }}
 						class="border-t border-gray-200/80 dark:border-gray-800/80"
@@ -347,10 +332,10 @@
 				{#if isExpanded}
 					<div
 						id="card-content"
-						in:slide={areAnimationsEnabled()
+						in:slide={animations.enabled
 							? { duration: transitionDuration, easing: quintOut }
 							: { duration: 0 }}
-						out:slide={areAnimationsEnabled()
+						out:slide={animations.enabled
 							? { duration: Math.floor(transitionDuration * 0.8), easing: quintOut }
 							: { duration: 0 }}
 						class="border-t border-gray-200/80 dark:border-gray-800/80"

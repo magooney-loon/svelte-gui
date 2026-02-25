@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { auth, logoutUser, pb, toast, safeResolve } from '$lib/utils';
+	import { untrack } from 'svelte';
 	import { AuthCrudClient } from '$lib/api/auth/crud';
 	import { Card, Button } from '$lib/components/partials';
 	import { AccountIcons, StatusIcons, FileIcons } from '$lib/components/icons';
@@ -10,10 +11,12 @@
 
 	const authClient = new AuthCrudClient(pb);
 
-	let profileForm = $state({
-		name: data.user?.name || '',
-		avatar: null as File | null
-	});
+	let profileForm = $state(
+		untrack(() => ({
+			name: data.user?.name || '',
+			avatar: null as File | null
+		}))
+	);
 
 	function copyToClipboard(text: string) {
 		navigator.clipboard

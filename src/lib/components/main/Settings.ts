@@ -47,7 +47,7 @@ export class SettingsService {
 			localStorage.setItem(this.STORAGE_KEY, JSON.stringify(settings));
 		} catch (error) {
 			console.error('Failed to save settings:', error);
-			throw new Error('Failed to save settings to localStorage');
+			throw new Error('Failed to save settings to localStorage', { cause: error });
 		}
 	}
 

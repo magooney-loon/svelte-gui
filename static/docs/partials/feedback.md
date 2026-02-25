@@ -158,23 +158,24 @@ None - controlled via global `toastState` store
 
 ```typescript
 interface Toast {
-  id: string
-  message: string
-  type: 'error' | 'warning' | 'info' | 'success'
-  dismissible: boolean
-  duration: number              // ms, 0 = no auto-dismiss
-  class?: string
-  action?: {
-    label: string
-    onClick: () => void
-  }
-  onDismiss?: () => void
+	id: string;
+	message: string;
+	type: 'error' | 'warning' | 'info' | 'success';
+	dismissible: boolean;
+	duration: number; // ms, 0 = no auto-dismiss
+	class?: string;
+	action?: {
+		label: string;
+		onClick: () => void;
+	};
+	onDismiss?: () => void;
 }
 ```
 
 ### Usage
 
 Via `toast` utility:
+
 - `toast.success(message, options)`
 - `toast.error(message, options)`
 - `toast.warning(message, options)`

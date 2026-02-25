@@ -37,6 +37,7 @@ export {
 } from './toast.svelte';
 
 // ==================== ANIMATIONS ====================
+export { animations } from './animations.svelte';
 export { staggeredAnimation, singleElementAnimation, staggerPresets } from './staggered-animation';
 
 export type { StaggeredAnimationOptions } from './staggered-animation';

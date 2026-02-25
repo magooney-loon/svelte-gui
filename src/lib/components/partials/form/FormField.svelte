@@ -35,6 +35,7 @@
 		step?: number | string;
 		rows?: number;
 		class?: string;
+		autocomplete?: FullAutoFill;
 		oninput?: (event: Event) => void;
 		onchange?: (event: Event) => void;
 		// Validation props
@@ -63,6 +64,7 @@
 		step,
 		rows = 3,
 		class: className = '',
+		autocomplete,
 		oninput,
 		onchange,
 		// Validation props with defaults
@@ -122,6 +124,23 @@
 		if (!autoValidate) return [];
 		const autoRules = FormValidator.getAutoValidationRules(type, required, min, max);
 		return [...autoRules, ...customValidationRules];
+	});
+
+	// Resolve autocomplete: use explicit prop, otherwise derive from type
+	const resolvedAutocomplete = $derived.by((): FullAutoFill => {
+		if (autocomplete !== undefined) return autocomplete;
+		switch (type) {
+			case 'email':
+				return 'email';
+			case 'password':
+				return 'current-password';
+			case 'tel':
+				return 'tel';
+			case 'url':
+				return 'url';
+			default:
+				return 'off';
+		}
 	});
 
 	// Handle input events
@@ -267,11 +286,10 @@
 						oninput={handleInput}
 						onchange={handleChange}
 						onblur={handleBlur}
-						autocomplete="off"
+						autocomplete={resolvedAutocomplete}
 						autocorrect="off"
 						autocapitalize="off"
 						spellcheck="false"
-						data-form-type="other"
 						{...restProps}
 					/>
 				{/if}

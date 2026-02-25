@@ -1,26 +1,5 @@
 <script lang="ts">
-	export type MediaIconName =
-		| 'camera'
-		| 'image'
-		| 'picture'
-		| 'video'
-		| 'play'
-		| 'pause'
-		| 'stop'
-		| 'volume'
-		| 'volume-up'
-		| 'volume-down'
-		| 'volume-mute'
-		| 'microphone'
-		| 'microphone-off'
-		| 'film'
-		| 'music'
-		| 'headphones'
-		| 'speaker'
-		| 'screen'
-		| 'projector'
-		| 'tv'
-		| 'radio';
+	import type { MediaIconName } from './types.js';
 
 	let {
 		name,

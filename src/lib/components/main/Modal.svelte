@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+	import { onMount, untrack } from 'svelte';
 	import { fade, fly } from 'svelte/transition';
 	import { quintOut } from 'svelte/easing';
 	import type { Snippet } from 'svelte';
@@ -25,7 +25,7 @@
 		footer
 	}: Props = $props();
 
-	const logic = new ModalLogic({ open, title, size, closeable, onclose });
+	const logic = untrack(() => new ModalLogic({ open, title, size, closeable, onclose }));
 	let state = $state<ModalState>(logic.getState());
 
 	logic.onStateUpdate((newState) => {

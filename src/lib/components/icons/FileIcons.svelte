@@ -1,33 +1,5 @@
 <script lang="ts">
-	export type FileIconName =
-		| 'file'
-		| 'file-text'
-		| 'folder'
-		| 'folder-open'
-		| 'document'
-		| 'pdf'
-		| 'spreadsheet'
-		| 'presentation'
-		| 'archive'
-		| 'zip'
-		| 'cloud'
-		| 'cloud-upload'
-		| 'cloud-download'
-		| 'database'
-		| 'hard-drive'
-		| 'usb'
-		| 'cd'
-		| 'server'
-		| 'storage'
-		| 'backup'
-		| 'export'
-		| 'import'
-		| 'attachment'
-		| 'paperclip'
-		| 'certificate'
-		| 'key'
-		| 'lock'
-		| 'unlock';
+	import type { FileIconName } from './types.js';
 
 	let {
 		name,

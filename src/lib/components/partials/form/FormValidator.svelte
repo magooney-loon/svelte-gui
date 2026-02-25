@@ -35,12 +35,10 @@
 	let {
 		formData = $bindable({}),
 		fieldConfigs = {},
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		validateOnChange = true,
 		children
 	}: Props = $props();
-
-	// Use validateOnChange to prevent unused variable warning
-	void validateOnChange;
 
 	// Form validation state
 	let errors = $state({} as Record<string, string>);

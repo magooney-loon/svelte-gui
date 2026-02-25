@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onMount, onDestroy } from 'svelte';
+	import { onMount, onDestroy, untrack } from 'svelte';
 	import { browser } from '$app/environment';
 
 	// Props
@@ -59,10 +59,10 @@
 	let isResizing = $state(false);
 	let dragStartX = $state(0);
 	let dragStartY = $state(0);
-	let windowStartX = $state(x);
-	let windowStartY = $state(y);
-	let resizeStartWidth = $state(width);
-	let resizeStartHeight = $state(height);
+	let windowStartX = $state(untrack(() => x));
+	let windowStartY = $state(untrack(() => y));
+	let resizeStartWidth = $state(untrack(() => width));
+	let resizeStartHeight = $state(untrack(() => height));
 	let resizeStartX = $state(0);
 	let resizeStartY = $state(0);
 	let isMobile = $state(false);

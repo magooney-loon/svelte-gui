@@ -27,7 +27,7 @@
 		lg: 'px-3 py-2 text-sm'
 	};
 
-	const colorVariants = {
+	const colorVariants = $derived({
 		success:
 			'bg-emerald-50 text-emerald-700 ring-1 ring-emerald-200 dark:bg-emerald-950 dark:text-emerald-300 dark:ring-emerald-800',
 		warning:
@@ -41,9 +41,9 @@
 		custom: customColors
 			? `${customColors.bg} ${customColors.text}`
 			: 'bg-gray-50 text-gray-600 ring-1 ring-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:ring-gray-700'
-	};
+	});
 
-	const dotVariants = {
+	const dotVariants = $derived({
 		success: 'bg-emerald-500',
 		warning: 'bg-amber-500',
 		error: 'bg-red-500',
@@ -51,7 +51,7 @@
 		update: 'bg-purple-500',
 		gray: 'bg-gray-400',
 		custom: customColors?.bg || 'bg-gray-400'
-	};
+	});
 
 	let badgeClasses = $derived(
 		[

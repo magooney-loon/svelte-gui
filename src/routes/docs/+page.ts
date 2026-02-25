@@ -88,7 +88,7 @@ function addHeaderAnchors(html: string, headers: DocHeader[]): string {
 	return htmlWithAnchors;
 }
 
-export const load = async ({ fetch }) => {
+export const load = async ({ fetch }: { fetch: typeof globalThis.fetch }) => {
 	console.log('Loading documentation sections...');
 
 	try {

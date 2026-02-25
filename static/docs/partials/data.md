@@ -57,12 +57,12 @@ Action buttons per row
 
 ```typescript
 interface Column {
-  key: string                          // Data property key
-  label: string                        // Header label
-  sortable?: boolean                   // Enable sorting
-  width?: string                       // CSS width value
-  align?: 'left' | 'center' | 'right'  // Text alignment
-  class?: string                       // Custom CSS classes
+	key: string; // Data property key
+	label: string; // Header label
+	sortable?: boolean; // Enable sorting
+	width?: string; // CSS width value
+	align?: 'left' | 'center' | 'right'; // Text alignment
+	class?: string; // Custom CSS classes
 }
 ```
 
@@ -181,7 +181,7 @@ Container CSS classes
 When `autoColor={true}`, color automatically changes based on percentage:
 
 - **0-25%**: Red (critical/low)
-- **26-45%**: Orange (warning/poor)  
+- **26-45%**: Orange (warning/poor)
 - **46-75%**: Yellow (caution/fair)
 - **76-100%**: Green (success/good)
 
@@ -221,10 +221,10 @@ Item rendering template
 
 ```typescript
 interface EmptyState {
-  message: string            // Empty state message
-  ctaText?: string          // Call-to-action text
-  ctaHref?: string          // Call-to-action link
-  secondaryText?: string    // Secondary helper text
+	message: string; // Empty state message
+	ctaText?: string; // Call-to-action text
+	ctaHref?: string; // Call-to-action link
+	secondaryText?: string; // Secondary helper text
 }
 ```
 

@@ -9,6 +9,7 @@ Singleton wrapper around PocketBase that manages backend connections and provide
 ## Auth
 
 Type-safe authentication endpoints supporting:
+
 - User login
 - User registration
 - Password reset

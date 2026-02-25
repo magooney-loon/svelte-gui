@@ -1,8 +1,8 @@
 import { goto } from '$app/navigation';
 import { resolve } from '$app/paths';
-import { writable, get } from 'svelte/store';
 import { browser } from '$app/environment';
 import { startViewTransition, createNamedTransition } from './view-transitions';
+import { animations } from './animations.svelte';
 
 /**
  * Safely resolve a path with type casting
@@ -12,23 +12,10 @@ export function safeResolve(path: string): string {
 }
 
 /**
- * Store to track whether animations are enabled
- */
-export const animationsEnabled = writable(true);
-
-/**
  * Update animation preference from settings
  */
 export function updateAnimationPreference(enabled: boolean): void {
-	animationsEnabled.set(enabled);
-}
-
-/**
- * Get current animation preference
- */
-export function getAnimationPreference(): boolean {
-	if (!browser) return true;
-	return get(animationsEnabled);
+	animations.set(enabled);
 }
 
 /**
@@ -48,7 +35,7 @@ export async function navigateWithTransition(
 	const { transitionName, ...gotoOptions } = options;
 
 	try {
-		if (!getAnimationPreference()) {
+		if (!animations.enabled) {
 			await goto(safeResolve(typeof url === 'string' ? url : url.pathname), gotoOptions);
 			return;
 		}
@@ -156,7 +143,7 @@ export async function goBackWithTransition(fallbackUrl?: string): Promise<void> 
 
 	try {
 		if (window.history.length > 1) {
-			if (getAnimationPreference()) {
+			if (animations.enabled) {
 				await startViewTransition(() => {
 					window.history.back();
 				});
@@ -179,7 +166,7 @@ export async function goForwardWithTransition(): Promise<void> {
 	if (!browser) return;
 
 	try {
-		if (getAnimationPreference()) {
+		if (animations.enabled) {
 			await startViewTransition(() => {
 				window.history.forward();
 			});
