@@ -130,11 +130,16 @@
 	const resolvedAutocomplete = $derived.by((): FullAutoFill => {
 		if (autocomplete !== undefined) return autocomplete;
 		switch (type) {
-			case 'email': return 'email';
-			case 'password': return 'current-password';
-			case 'tel': return 'tel';
-			case 'url': return 'url';
-			default: return 'off';
+			case 'email':
+				return 'email';
+			case 'password':
+				return 'current-password';
+			case 'tel':
+				return 'tel';
+			case 'url':
+				return 'url';
+			default:
+				return 'off';
 		}
 	});
 

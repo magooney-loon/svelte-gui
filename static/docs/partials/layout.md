@@ -57,12 +57,12 @@ Section content renderer
 
 ```typescript
 interface AccordionSection {
-  id: string
-  title: string
-  icon?: string
-  disabled?: boolean
-  content?: string
-  [key: string]: unknown
+	id: string;
+	title: string;
+	icon?: string;
+	disabled?: boolean;
+	content?: string;
+	[key: string]: unknown;
 }
 ```
 
@@ -203,7 +203,7 @@ Use `.carousel-item` class for items:
 
 ```html
 <div class="carousel-item">
-  <!-- Your content -->
+	<!-- Your content -->
 </div>
 ```
 
@@ -354,6 +354,7 @@ onMove({ x: number; y: number })
 ## Layout Component Usage
 
 All layout components support:
+
 - Dark mode compatibility
 - Custom CSS classes
 - Responsive design

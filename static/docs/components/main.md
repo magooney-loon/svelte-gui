@@ -40,6 +40,7 @@ Optional footer content area
 ### ModalLogic Class
 
 Internal state management class with methods:
+
 - `open()` - Open the modal
 - `close()` - Close the modal
 - `isOpen()` - Check if modal is open
@@ -69,6 +70,7 @@ None (component manages internal state)
 ### NavigationLogic Class
 
 Internal navigation state management with:
+
 - `navItems` - Array of navigation menu items
 - `toggleMobileMenu()` - Toggle mobile menu visibility
 - `toggleTheme()` - Toggle between light/dark theme
@@ -103,6 +105,7 @@ None (component manages internal state)
 ### SettingsService Class
 
 Manages application settings with methods:
+
 - `getSettings()` - Load settings from storage
 - `updateSettings()` - Update and persist settings
 
@@ -110,10 +113,10 @@ Manages application settings with methods:
 
 ```typescript
 interface SettingsData {
-  ui: {
-    animationsEnabled: boolean
-    mouseEffectsEnabled: boolean
-  }
+	ui: {
+		animationsEnabled: boolean;
+		mouseEffectsEnabled: boolean;
+	};
 }
 ```
 
@@ -138,6 +141,7 @@ None (component uses global state)
 ### SplashScreenManager Class
 
 Singleton manager for splash screen state with methods:
+
 - `startLoading()` - Start the loading animation
 - `completeLoading()` - Mark loading as complete
 - `stopLoading()` - Stop the loading animation
@@ -147,8 +151,8 @@ Singleton manager for splash screen state with methods:
 
 ```typescript
 interface SplashScreenState {
-  isLoading: boolean
-  progress: number    // 0-100
+	isLoading: boolean;
+	progress: number; // 0-100
 }
 ```
 

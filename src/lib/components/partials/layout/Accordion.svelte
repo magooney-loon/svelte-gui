@@ -85,9 +85,15 @@
 
 	// Pre-computed static classes to avoid recalculation
 	const containerClasses = $derived(`space-y-4 ${className}`);
-	const baseSectionClasses = $derived(`overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm dark:border-gray-800 dark:bg-gray-900 ${sectionClass}`);
-	const baseHeaderClasses = $derived(`flex w-full items-center justify-between p-6 text-left transition-all duration-150 ease-out focus:outline-none ${headerClass}`);
-	const baseContentClasses = $derived(`border-t border-gray-200 dark:border-gray-800 ${enableScroll ? 'overflow-y-auto' : ''} ${contentClass}`);
+	const baseSectionClasses = $derived(
+		`overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm dark:border-gray-800 dark:bg-gray-900 ${sectionClass}`
+	);
+	const baseHeaderClasses = $derived(
+		`flex w-full items-center justify-between p-6 text-left transition-all duration-150 ease-out focus:outline-none ${headerClass}`
+	);
+	const baseContentClasses = $derived(
+		`border-t border-gray-200 dark:border-gray-800 ${enableScroll ? 'overflow-y-auto' : ''} ${contentClass}`
+	);
 
 	// Optimized class functions - simplified without caching to avoid crashes
 	function getHeaderClasses(section: AccordionSection) {

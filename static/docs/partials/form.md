@@ -246,9 +246,9 @@ Value to confirm against (for password confirmation)
 
 ```typescript
 interface Option {
-  value: string | number
-  label: string
-  disabled?: boolean
+	value: string | number;
+	label: string;
+	disabled?: boolean;
 }
 ```
 
@@ -267,9 +267,9 @@ FormField includes built-in validation based on field type:
 
 ```typescript
 interface ValidationRule {
-  type: 'required' | 'email' | 'minLength' | 'maxLength' | 'pattern' | 'min' | 'max' | 'confirm'
-  value?: unknown
-  message: string
+	type: 'required' | 'email' | 'minLength' | 'maxLength' | 'pattern' | 'min' | 'max' | 'confirm';
+	value?: unknown;
+	message: string;
 }
 ```
 
@@ -298,56 +298,43 @@ interface ValidationRule {
 
 ```svelte
 <!-- Email with automatic validation -->
-<FormField
-  id="email"
-  label="Email"
-  type="email"
-  required
-  bind:value={email}
-/>
+<FormField id="email" label="Email" type="email" required bind:value={email} />
 
 <!-- Password with custom minimum length -->
-<FormField
-  id="password"
-  label="Password"
-  type="password"
-  required
-  min={10}
-  bind:value={password}
-/>
+<FormField id="password" label="Password" type="password" required min={10} bind:value={password} />
 
 <!-- Password confirmation -->
 <FormField
-  id="confirm-password"
-  label="Confirm Password"
-  type="password"
-  required
-  confirmValue={password}
-  bind:value={confirmPassword}
+	id="confirm-password"
+	label="Confirm Password"
+	type="password"
+	required
+	confirmValue={password}
+	bind:value={confirmPassword}
 />
 
 <!-- Custom validation rules -->
 <FormField
-  id="username"
-  label="Username"
-  required
-  customValidationRules={[
-    {
-      type: 'pattern',
-      value: /^[a-zA-Z0-9_]+$/,
-      message: 'Username can only contain letters, numbers, and underscores'
-    }
-  ]}
-  bind:value={username}
+	id="username"
+	label="Username"
+	required
+	customValidationRules={[
+		{
+			type: 'pattern',
+			value: /^[a-zA-Z0-9_]+$/,
+			message: 'Username can only contain letters, numbers, and underscores'
+		}
+	]}
+	bind:value={username}
 />
 
 <!-- Disable auto-validation -->
 <FormField
-  id="custom"
-  label="Custom Field"
-  autoValidate={false}
-  errorText={customError}
-  bind:value={customValue}
+	id="custom"
+	label="Custom Field"
+	autoValidate={false}
+	errorText={customError}
+	bind:value={customValue}
 />
 ```
 
@@ -375,12 +362,12 @@ Render prop with validation context
 
 ```typescript
 interface FieldConfig {
-  type: string
-  required?: boolean
-  min?: number
-  max?: number
-  customRules?: ValidationRule[]
-  confirmField?: string
+	type: string;
+	required?: boolean;
+	min?: number;
+	max?: number;
+	customRules?: ValidationRule[];
+	confirmField?: string;
 }
 ```
 
@@ -388,37 +375,37 @@ interface FieldConfig {
 
 ```svelte
 <script>
-  let formData = { email: '', password: '', confirmPassword: '' }
-  
-  const fieldConfigs = {
-    email: { type: 'email', required: true },
-    password: { type: 'password', required: true, min: 8 },
-    confirmPassword: { type: 'password', required: true, confirmField: 'password' }
-  }
+	let formData = { email: '', password: '', confirmPassword: '' };
+
+	const fieldConfigs = {
+		email: { type: 'email', required: true },
+		password: { type: 'password', required: true, min: 8 },
+		confirmPassword: { type: 'password', required: true, confirmField: 'password' }
+	};
 </script>
 
 <FormValidator bind:formData {fieldConfigs}>
-  {#snippet children(validation)}
-    <form onsubmit={() => {
-      const result = validation.validateForm()
-      if (result.isValid) {
-        // Submit form
-      }
-    }}>
-      <FormField 
-        id="email" 
-        label="Email" 
-        type="email" 
-        required 
-        bind:value={formData.email}
-        errorText={validation.getFieldError('email')}
-      />
-      
-      <button type="submit" disabled={!validation.isValid}>
-        Submit
-      </button>
-    </form>
-  {/snippet}
+	{#snippet children(validation)}
+		<form
+			onsubmit={() => {
+				const result = validation.validateForm();
+				if (result.isValid) {
+					// Submit form
+				}
+			}}
+		>
+			<FormField
+				id="email"
+				label="Email"
+				type="email"
+				required
+				bind:value={formData.email}
+				errorText={validation.getFieldError('email')}
+			/>
+
+			<button type="submit" disabled={!validation.isValid}> Submit </button>
+		</form>
+	{/snippet}
 </FormValidator>
 ```
 
@@ -453,22 +440,22 @@ Standalone validation functions for custom form handling.
 ### Usage
 
 ```typescript
-import { quickValidate, validateForm } from '$lib/utils'
+import { quickValidate, validateForm } from '$lib/utils';
 
 // Quick validation
-const result = quickValidate('email', 'user@example.com', true)
+const result = quickValidate('email', 'user@example.com', true);
 if (!result.isValid) {
-  console.error(result.message)
+	console.error(result.message);
 }
 
 // Form validation
 const formResult = validateForm(
-  { email: 'test@test.com', password: '12345' },
-  {
-    email: { type: 'email', required: true },
-    password: { type: 'password', required: true, min: 8 }
-  }
-)
+	{ email: 'test@test.com', password: '12345' },
+	{
+		email: { type: 'email', required: true },
+		password: { type: 'password', required: true, min: 8 }
+	}
+);
 ```
 
 ---
@@ -495,10 +482,10 @@ Save callback
 
 ```typescript
 interface SettingsData {
-  ui: {
-    animationsEnabled: boolean
-    mouseEffectsEnabled: boolean
-  }
+	ui: {
+		animationsEnabled: boolean;
+		mouseEffectsEnabled: boolean;
+	};
 }
 ```
 

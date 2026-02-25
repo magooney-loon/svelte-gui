@@ -11,10 +11,12 @@
 
 	const authClient = new AuthCrudClient(pb);
 
-	let profileForm = $state(untrack(() => ({
-		name: data.user?.name || '',
-		avatar: null as File | null
-	})));
+	let profileForm = $state(
+		untrack(() => ({
+			name: data.user?.name || '',
+			avatar: null as File | null
+		}))
+	);
 
 	function copyToClipboard(text: string) {
 		navigator.clipboard

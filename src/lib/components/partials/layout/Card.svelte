@@ -151,13 +151,14 @@
 	}
 
 	// Pre-computed header classes for expandable cards
-	const expandableHeaderClasses = $derived(`group flex w-full cursor-pointer items-start justify-between p-4 text-left transition-all duration-150 ease-out hover:bg-gray-50/80 focus:bg-gray-50/80 focus:outline-none active:bg-gray-100/80 sm:p-6 dark:hover:bg-gray-800/50 dark:focus:bg-gray-800/50 dark:active:bg-gray-800/75 ${headerClass}`);
+	const expandableHeaderClasses = $derived(
+		`group flex w-full cursor-pointer items-start justify-between p-4 text-left transition-all duration-150 ease-out hover:bg-gray-50/80 focus:bg-gray-50/80 focus:outline-none active:bg-gray-100/80 sm:p-6 dark:hover:bg-gray-800/50 dark:focus:bg-gray-800/50 dark:active:bg-gray-800/75 ${headerClass}`
+	);
 
 	const staticHeaderClasses = $derived(`mb-4 ${headerClass}`);
 
 	// Transition duration - optimized for smooth performance
 	const transitionDuration = 300;
-
 </script>
 
 {#if href}

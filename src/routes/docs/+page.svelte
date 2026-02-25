@@ -121,7 +121,9 @@
 	const emptyStates = {
 		error: {
 			title: 'Documentation Error',
-			get description() { return errorDescription; },
+			get description() {
+				return errorDescription;
+			},
 			icon: 'error' as const,
 			iconBg: 'bg-red-50 dark:bg-red-900/20',
 			iconColor: 'text-red-600 dark:text-red-400',
