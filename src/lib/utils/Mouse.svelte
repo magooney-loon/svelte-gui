@@ -139,9 +139,10 @@
 	}
 
 	onMount(() => {
+		// Use matchMedia for reliable touch detection - avoids false positives from
+		// touch-capable monitors on desktop Chrome (maxTouchPoints > 0 on many desktops)
 		isTouchDevice =
-			'ontouchstart' in window ||
-			navigator.maxTouchPoints > 0 ||
+			window.matchMedia('(hover: none) and (pointer: coarse)').matches ||
 			/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
 		if (isTouchDevice) {

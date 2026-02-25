@@ -1,15 +1,5 @@
 <script lang="ts">
-	export type AccountIconName =
-		| 'user'
-		| 'login'
-		| 'logout'
-		| 'register'
-		| 'profile'
-		| 'users'
-		| 'shield'
-		| 'key'
-		| 'lock'
-		| 'unlock';
+	import type { AccountIconName } from './types.js';
 
 	let {
 		name,

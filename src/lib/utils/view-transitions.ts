@@ -1,6 +1,12 @@
 // https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API#css.at-rules.view-transition
 
-import { browser } from '$app/environment';
+import { animations } from './animations.svelte';
+
+interface ViewTransitionDocument extends Document {
+	startViewTransition(cb: () => Promise<void>): ViewTransition & { finished: Promise<void> };
+	activeViewTransition: { skipTransition(): void } | null;
+}
+const getDoc = () => document as unknown as ViewTransitionDocument;
 
 let isSupported: boolean | null = null;
 let stylesInjected = false;
@@ -21,25 +27,6 @@ function prefersReducedMotion(): boolean {
 	if (typeof window === 'undefined') return false;
 
 	return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-}
-
-/**
- * Check if animations are enabled in user settings
- */
-function areAnimationsEnabled(): boolean {
-	if (!browser) return true;
-
-	try {
-		const stored = localStorage.getItem('settings');
-		if (stored) {
-			const settings = JSON.parse(stored);
-			return settings?.ui?.animationsEnabled !== false;
-		}
-	} catch {
-		// If we can't read settings, default to enabled
-	}
-
-	return true;
 }
 
 type ViewTransitionCallback = () => void | Promise<void>;
@@ -164,14 +151,13 @@ function cleanupWillChange(): void {
  */
 export function startViewTransition(callback: ViewTransitionCallback): Promise<void> {
 	return new Promise<void>((resolve, reject) => {
-		if (!supportsViewTransitions() || prefersReducedMotion() || !areAnimationsEnabled()) {
+		if (!supportsViewTransitions() || prefersReducedMotion() || !animations.enabled) {
 			Promise.resolve(callback()).then(resolve).catch(reject);
 			return;
 		}
 
 		try {
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const transition = (document as any).startViewTransition(async () => {
+			const transition = getDoc().startViewTransition(async () => {
 				try {
 					await callback();
 				} catch (error) {
@@ -204,7 +190,7 @@ export function startViewTransition(callback: ViewTransitionCallback): Promise<v
  * Call this once when your app starts
  */
 export function initViewTransitions(): void {
-	if (supportsViewTransitions() && areAnimationsEnabled()) {
+	if (supportsViewTransitions() && animations.enabled) {
 		injectViewTransitionStyles();
 	}
 }
@@ -235,7 +221,7 @@ export function createNamedTransition(
 	callback: ViewTransitionCallback
 ): Promise<void> {
 	return new Promise<void>((resolve, reject) => {
-		if (!supportsViewTransitions() || prefersReducedMotion() || !areAnimationsEnabled()) {
+		if (!supportsViewTransitions() || prefersReducedMotion() || !animations.enabled) {
 			Promise.resolve(callback()).then(resolve).catch(reject);
 			return;
 		}
@@ -279,8 +265,7 @@ export function isTransitionRunning(): boolean {
 	if (!supportsViewTransitions()) return false;
 
 	try {
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		const activeTransition = (document as any).activeViewTransition;
+		const activeTransition = getDoc().activeViewTransition;
 		return activeTransition !== null && activeTransition !== undefined;
 	} catch {
 		return false;
@@ -294,8 +279,7 @@ export function skipTransition(): void {
 	if (!supportsViewTransitions()) return;
 
 	try {
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		const activeTransition = (document as any).activeViewTransition;
+		const activeTransition = getDoc().activeViewTransition;
 		if (activeTransition) {
 			activeTransition.skipTransition();
 		}

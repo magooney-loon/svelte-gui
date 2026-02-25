@@ -39,9 +39,6 @@
 		children
 	}: Props = $props();
 
-	// Use validateOnChange to prevent unused variable warning
-	void validateOnChange;
-
 	// Form validation state
 	let errors = $state({} as Record<string, string>);
 	let hasValidated = $state(false);

@@ -1,25 +1,5 @@
 <script lang="ts">
-	export type NavigationIconName =
-		| 'home'
-		| 'dashboard'
-		| 'back'
-		| 'forward'
-		| 'chevron-left'
-		| 'chevron-right'
-		| 'chevron-up'
-		| 'chevron-down'
-		| 'menu'
-		| 'close'
-		| 'plus'
-		| 'minus'
-		| 'refresh'
-		| 'link'
-		| 'download'
-		| 'upload'
-		| 'share'
-		| 'search'
-		| 'notification'
-		| 'bookmark';
+	import type { NavigationIconName } from './types.js';
 
 	let {
 		name,

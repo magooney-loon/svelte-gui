@@ -323,9 +323,9 @@ export class FormValidator {
 	}
 }
 
-// Export convenience functions
-export const validateField = FormValidator.validateField;
-export const quickValidate = FormValidator.quickValidate;
-export const getAutoValidationRules = FormValidator.getAutoValidationRules;
-export const getAutoHelperText = FormValidator.getAutoHelperText;
-export const validateForm = FormValidator.validateForm;
+// Export convenience functions (bound to preserve correct this context)
+export const validateField = FormValidator.validateField.bind(FormValidator);
+export const quickValidate = FormValidator.quickValidate.bind(FormValidator);
+export const getAutoValidationRules = FormValidator.getAutoValidationRules.bind(FormValidator);
+export const getAutoHelperText = FormValidator.getAutoHelperText.bind(FormValidator);
+export const validateForm = FormValidator.validateForm.bind(FormValidator);

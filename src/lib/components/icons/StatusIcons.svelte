@@ -1,22 +1,5 @@
 <script lang="ts">
-	export type StatusIconName =
-		| 'error'
-		| 'warning'
-		| 'info'
-		| 'loading'
-		| 'check'
-		| 'x'
-		| 'exclamation'
-		| 'question'
-		| 'pause'
-		| 'play'
-		| 'stop'
-		| 'connection'
-		| 'offline'
-		| 'online'
-		| 'busy'
-		| 'away'
-		| 'invisible';
+	import type { StatusIconName } from './types.js';
 
 	let {
 		name,

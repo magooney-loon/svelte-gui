@@ -65,9 +65,9 @@
 
 	const backgroundStyles = 'bg-gray-200 dark:bg-gray-700';
 
-	const animationStyles = animated ? 'transition-all duration-500 ease-out' : '';
+	const animationStyles = $derived(animated ? 'transition-all duration-500 ease-out' : '');
 
-	const stripedStyles = striped ? 'striped-progress' : '';
+	const stripedStyles = $derived(striped ? 'striped-progress' : '');
 
 	let barClasses = $derived(
 		`${sizeStyles[size]} ${colorStyles[dynamicColor]} ${animationStyles} ${stripedStyles} rounded-full relative overflow-hidden`

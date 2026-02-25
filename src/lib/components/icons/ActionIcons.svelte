@@ -1,26 +1,5 @@
 <script lang="ts">
-	export type ActionIconName =
-		| 'edit'
-		| 'save'
-		| 'delete'
-		| 'copy'
-		| 'paste'
-		| 'cut'
-		| 'undo'
-		| 'redo'
-		| 'print'
-		| 'heart'
-		| 'thumbs-up'
-		| 'thumbs-down'
-		| 'star'
-		| 'flag'
-		| 'filter'
-		| 'sort'
-		| 'export'
-		| 'import'
-		| 'send'
-		| 'reply'
-		| 'trash';
+	import type { ActionIconName } from './types.js';
 
 	let {
 		name,

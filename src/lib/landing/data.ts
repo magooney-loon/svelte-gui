@@ -108,7 +108,7 @@ export const featurePreviewCards = [
 		iconColor: 'text-purple-600',
 		bgColor: 'bg-purple-100 dark:bg-purple-900/30',
 		title: 'Modern Stack',
-		description: 'Svelte 5, Typescript, Tailwind CSS'
+		description: 'Svelte 5, Typescript, Tailwind'
 	}
 ];
 
@@ -141,7 +141,7 @@ export const stackOverview = [
 		title: 'Tailwind',
 		value: 'Styling',
 		color: 'purple' as const,
-		imageUrl: 'https://tailwindcss.com/_next/static/media/tailwindcss-mark.d52e9897.svg',
+		imageUrl: 'https://www.vectorlogo.zone/logos/tailwindcss/tailwindcss-icon.svg',
 		alt: 'Tailwind CSS Logo'
 	},
 	{

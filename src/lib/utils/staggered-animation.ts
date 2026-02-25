@@ -1,6 +1,5 @@
 import type { ActionReturn } from 'svelte/action';
-import { get } from 'svelte/store';
-import { animationsEnabled } from './navigation';
+import { animations } from './animations.svelte';
 
 // Shared intersection observer instance to reduce overhead
 let sharedObserver: IntersectionObserver | null = null;
@@ -38,7 +37,7 @@ const getSharedObserver = () => {
 						._animationData;
 					if (animationData) {
 						// Check if animations are enabled before running
-						const shouldAnimate = get(animationsEnabled);
+						const shouldAnimate = animations.enabled;
 
 						if (entry.isIntersecting && !animationData.hasAnimated) {
 							if (shouldAnimate) {
@@ -226,7 +225,7 @@ export function staggeredAnimation(
 		if (children.length === 0) return;
 
 		// Check if animations are enabled
-		const shouldAnimate = get(animationsEnabled);
+		const shouldAnimate = animations.enabled;
 
 		if (!shouldAnimate) {
 			// Skip initial state setup if animations are disabled
@@ -254,7 +253,7 @@ export function staggeredAnimation(
 		if (children.length === 0) return;
 
 		// Check if animations are enabled
-		const shouldAnimate = get(animationsEnabled);
+		const shouldAnimate = animations.enabled;
 
 		if (!shouldAnimate) {
 			// Skip animation, just set final state
@@ -299,7 +298,7 @@ export function staggeredAnimation(
 		}
 
 		// Check if animations are enabled
-		const shouldAnimate = get(animationsEnabled);
+		const shouldAnimate = animations.enabled;
 
 		children.forEach((child) => {
 			// Ensure element is still in DOM
@@ -367,7 +366,7 @@ export function staggeredAnimation(
 				};
 
 				// Use shared observer only if animations are enabled
-				const shouldAnimate = get(animationsEnabled);
+				const shouldAnimate = animations.enabled;
 				if (shouldAnimate) {
 					observer = getSharedObserver();
 					requestAnimationFrame(() => {
@@ -514,7 +513,7 @@ export function singleElementAnimation(
 		`translate3d(${x}px, ${y}px, 0) scale(${scale})`;
 
 	// Check if animations are enabled
-	const shouldAnimate = get(animationsEnabled);
+	const shouldAnimate = animations.enabled;
 
 	if (!shouldAnimate) {
 		// Skip initial state setup if animations are disabled
@@ -537,7 +536,7 @@ export function singleElementAnimation(
 
 	const animate = () => {
 		// Check if animations are enabled
-		const shouldAnimate = get(animationsEnabled);
+		const shouldAnimate = animations.enabled;
 
 		// Ensure element is still in DOM
 		if (node.parentNode) {
@@ -556,7 +555,7 @@ export function singleElementAnimation(
 
 	const reset = () => {
 		// Check if animations are enabled
-		const shouldAnimate = get(animationsEnabled);
+		const shouldAnimate = animations.enabled;
 
 		// Ensure element is still in DOM
 		if (node.parentNode) {
@@ -600,7 +599,7 @@ export function singleElementAnimation(
 			hasAnimated = false;
 
 			// Check if animations are enabled
-			const shouldAnimate = get(animationsEnabled);
+			const shouldAnimate = animations.enabled;
 
 			// Reset to initial state with new options
 			if (shouldAnimate) {

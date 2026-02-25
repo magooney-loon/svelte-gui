@@ -24,9 +24,12 @@
 	let isDismissed = $state(true);
 
 	// Show banner after delay
-	setTimeout(() => {
-		isDismissed = false;
-	}, delay);
+	$effect(() => {
+		const timer = setTimeout(() => {
+			isDismissed = false;
+		}, delay);
+		return () => clearTimeout(timer);
+	});
 
 	const colorVariants = {
 		yellow:

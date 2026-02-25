@@ -1,20 +1,5 @@
 <script lang="ts">
-	export type ThemeIconName =
-		| 'sun'
-		| 'moon'
-		| 'settings'
-		| 'cog'
-		| 'wrench'
-		| 'adjustments'
-		| 'sliders'
-		| 'contrast'
-		| 'palette'
-		| 'brush'
-		| 'desktop'
-		| 'mobile'
-		| 'tablet'
-		| 'globe'
-		| 'language';
+	import type { ThemeIconName } from './types.js';
 
 	let {
 		name,

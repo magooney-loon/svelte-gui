@@ -1,18 +1,5 @@
 <script lang="ts">
-	export type SocialIconName =
-		| 'github'
-		| 'twitter'
-		| 'linkedin'
-		| 'facebook'
-		| 'youtube'
-		| 'instagram'
-		| 'mail'
-		| 'phone'
-		| 'message'
-		| 'whatsapp'
-		| 'telegram'
-		| 'discord'
-		| 'slack';
+	import type { SocialIconName } from './types.js';
 
 	let {
 		name,

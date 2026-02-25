@@ -2,8 +2,7 @@
 	import { SvelteSet } from 'svelte/reactivity';
 	import { slide } from 'svelte/transition';
 	import { quintOut } from 'svelte/easing';
-	import { browser } from '$app/environment';
-	import { scrollToElementSmooth } from '$lib/utils';
+	import { scrollToElementSmooth, animations } from '$lib/utils';
 
 	export interface AccordionSection {
 		id: string;
@@ -85,27 +84,10 @@
 	}
 
 	// Pre-computed static classes to avoid recalculation
-	const containerClasses = `space-y-4 ${className}`;
-	const baseSectionClasses = `overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm dark:border-gray-800 dark:bg-gray-900 ${sectionClass}`;
-	const baseHeaderClasses = `flex w-full items-center justify-between p-6 text-left transition-all duration-150 ease-out focus:outline-none ${headerClass}`;
-	const baseContentClasses = `border-t border-gray-200 dark:border-gray-800 ${enableScroll ? 'overflow-y-auto' : ''} ${contentClass}`;
-
-	// Check if animations are enabled in user settings
-	function areAnimationsEnabled(): boolean {
-		if (!browser) return true;
-
-		try {
-			const stored = localStorage.getItem('settings');
-			if (stored) {
-				const settings = JSON.parse(stored);
-				return settings?.ui?.animationsEnabled !== false;
-			}
-		} catch {
-			// If we can't read settings, default to enabled
-		}
-
-		return true;
-	}
+	const containerClasses = $derived(`space-y-4 ${className}`);
+	const baseSectionClasses = $derived(`overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm dark:border-gray-800 dark:bg-gray-900 ${sectionClass}`);
+	const baseHeaderClasses = $derived(`flex w-full items-center justify-between p-6 text-left transition-all duration-150 ease-out focus:outline-none ${headerClass}`);
+	const baseContentClasses = $derived(`border-t border-gray-200 dark:border-gray-800 ${enableScroll ? 'overflow-y-auto' : ''} ${contentClass}`);
 
 	// Optimized class functions - simplified without caching to avoid crashes
 	function getHeaderClasses(section: AccordionSection) {
@@ -166,10 +148,10 @@
 			{#if isOpen}
 				<div
 					id="accordion-content-{section.id}"
-					in:slide={areAnimationsEnabled()
+					in:slide={animations.enabled
 						? { duration: animationDuration, easing: quintOut }
 						: { duration: 0 }}
-					out:slide={areAnimationsEnabled()
+					out:slide={animations.enabled
 						? { duration: Math.floor(animationDuration * 0.85), easing: quintOut }
 						: { duration: 0 }}
 					class={baseContentClasses}

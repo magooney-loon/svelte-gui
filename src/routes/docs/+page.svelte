@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { APP_NAME, startViewTransition, disableUserScroll } from '$lib/utils';
+	import { untrack } from 'svelte';
 	import { EmptyState } from '$lib/components/partials';
 	import { StatusIcons, NavigationIcons } from '$lib/components/icons';
 	import DocSidebar from './components/DocSidebar.svelte';
@@ -21,7 +22,7 @@
 
 	// UI State using Svelte 5 runes
 	let selectedSection = $state<LoadedDocSection | null>(
-		data.selectedSection || data.sections?.[0] || null
+		untrack(() => data.selectedSection || data.sections?.[0] || null)
 	);
 	let sidebarOpen = $state(false);
 	let searchOpen = $state(false);
@@ -116,10 +117,11 @@
 	}
 
 	// Empty state configurations
+	const errorDescription = $derived(data.error || 'Failed to load documentation.');
 	const emptyStates = {
 		error: {
 			title: 'Documentation Error',
-			description: data.error || 'Failed to load documentation.',
+			get description() { return errorDescription; },
 			icon: 'error' as const,
 			iconBg: 'bg-red-50 dark:bg-red-900/20',
 			iconColor: 'text-red-600 dark:text-red-400',
@@ -138,7 +140,7 @@
 			iconColor: 'text-gray-400',
 			action: undefined
 		}
-	} as const;
+	};
 </script>
 
 <svelte:window onkeydown={handleKeydown} />

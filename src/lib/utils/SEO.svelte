@@ -59,15 +59,15 @@
 		additionalMeta = []
 	}: SEOProps = $props();
 
-	const fullImageUrl = image.startsWith('http') ? image : `${url}${image}`;
-	const fullCanonicalUrl = canonicalUrl || url;
-	const fullManifestUrl = manifestPath.startsWith('http') ? manifestPath : manifestPath;
+	const fullImageUrl = $derived(image.startsWith('http') ? image : `${url}${image}`);
+	const fullCanonicalUrl = $derived(canonicalUrl || url);
+	const fullManifestUrl = $derived(manifestPath.startsWith('http') ? manifestPath : manifestPath);
 
-	const robotsContent = [noindex ? 'noindex' : 'index', nofollow ? 'nofollow' : 'follow'].join(
-		', '
+	const robotsContent = $derived(
+		[noindex ? 'noindex' : 'index', nofollow ? 'nofollow' : 'follow'].join(', ')
 	);
 
-	const defaultStructuredData = {
+	const defaultStructuredData = $derived({
 		'@context': 'https://schema.org',
 		'@type': 'WebSite',
 		name: siteName,
@@ -83,9 +83,9 @@
 			width: ogImageWidth,
 			height: ogImageHeight
 		}
-	};
+	});
 
-	const finalStructuredData = structuredData || defaultStructuredData;
+	const finalStructuredData = $derived(structuredData || defaultStructuredData);
 
 	function createStructuredDataScript() {
 		if (!finalStructuredData) return '';
